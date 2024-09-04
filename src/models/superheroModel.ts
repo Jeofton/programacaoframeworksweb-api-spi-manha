@@ -1,17 +1,21 @@
-import mongoose, { Document, Schema } from 'mongoose';
+// src/models/SuperHero.ts
+import mongoose, { Document, Schema, model } from 'mongoose';
+import { ISuperhero } from './interfaces/ISuperhero';
 
-export interface ISuperhero extends Document {
-  nome: string;
-  equipe?: string;
-  poderes: string[];
-  status: 'Active' | 'Inactive';
-}
+// Interface para o Mongoose Model
+interface ISuperHeroModel extends ISuperhero, Document {}
 
-const SuperheroSchema: Schema = new Schema({
+// Schema do Mongoose
+const SuperHeroSchema: Schema = new Schema<ISuperHeroModel>({
   nome: { type: String, required: true },
-  equipe: { type: String },
   poderes: { type: [String], required: true },
-  status: { type: String, enum: ['Active', 'Inactive'], required: true }
+  equipe: { type: String },
+  status: { type: String, enum: ['Active', 'Inactive'], default: 'Active' },
+  baseOperacional: { type: String },
+  nivelPoder: { type: Number, required: true, min: 1, max: 100 }
 });
 
-export default mongoose.model<ISuperhero>('Superhero', SuperheroSchema);
+// Criação do modelo
+const SuperHero = model<ISuperHeroModel>('SuperHero', SuperHeroSchema);
+
+export default SuperHero;
