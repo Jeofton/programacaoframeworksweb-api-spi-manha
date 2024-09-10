@@ -1,6 +1,7 @@
 // src/repositories/SuperHeroRepository.ts
 import SuperHero from '../models/superheroModel';
 import { ISuperhero } from '../models/interfaces/ISuperhero';
+import { ObjectId } from 'mongodb';
 
 class SuperHeroRepository {
   // Criação de um novo super-herói
@@ -14,27 +15,27 @@ class SuperHeroRepository {
   }
 
   // Busca de super-herói por nome
-  public async findByName(nome: string): Promise<ISuperhero | null> {
+  public async findById(id: string): Promise<ISuperhero | null> {
     try {
-      return await SuperHero.findOne({ nome });
+      return await SuperHero.findOne({ _id : new ObjectId(id) });
     } catch (error) {
       throw new Error(`Erro ao buscar super-herói: ${(error as Error).message}`);
     }
   }
 
   // Atualização de super-herói
-  public async update(nome: string, updatedData: Partial<ISuperhero>): Promise<ISuperhero | null> {
+  public async update(id: string, updatedData: Partial<ISuperhero>): Promise<ISuperhero | null> {
     try {
-      return await SuperHero.findOneAndUpdate({ nome }, updatedData, { new: true });
+      return await SuperHero.findOneAndUpdate({_id: new ObjectId(id)}, updatedData, { new: true });
     } catch (error) {
       throw new Error(`Erro ao atualizar super-herói: ${(error as Error).message}`);
     }
   }
 
   // Exclusão de super-herói
-  public async delete(nome: string): Promise<boolean> {
+  public async delete(id: string): Promise<boolean> {
     try {
-      const result = await SuperHero.findOneAndDelete({ nome });
+      const result = await SuperHero.findOneAndDelete({_id: new ObjectId(id)});
       return result !== null;
     } catch (error) {
       throw new Error(`Erro ao deletar super-herói: ${(error as Error).message}`);

@@ -12,7 +12,7 @@ export class SuperheroController {
 
   async getById(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    const superhero = await service.getSuperheroByName(id);
+    const superhero = await service.getSuperheroById(id);
     if (!superhero) {
       return res.status(404).json({ message: 'Superhero not found' });
     }
