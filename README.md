@@ -51,11 +51,14 @@ Aqui é importante que as dependências bcryptjs e jsonwebtoken estejam instalad
 
 #### Implementamos as rotas para registro e login (src/routes/admin/authRoutes.ts)
 
-### Agora que temos a autenticação da api implementada, devemos implementar a proteção de rotas, permitindo que apenas sejam acessadas se o usuário tiver autorização.
+### Agora que temos a autenticação da api implementada, devemos implementar a proteção de rotas, permitindo que apenas sejam acessadas se o usuário tiver autenticado.
 
 7. Crie um novo diretório para armazenar os arquivos de middleware
 
 1. Adicione um arquivo de middleware
 
 #### Implemente o middleware de proteção de rotas (src/middlewares/authMiddleware.ts)
+
+1. Após implementar o **authMiddleware.ts**, devemos configurar as rotas para login e register;
+2. Estas rotas são configuradas no diretório routes **(src/routes/admin/authRoutes.ts)**;
 
